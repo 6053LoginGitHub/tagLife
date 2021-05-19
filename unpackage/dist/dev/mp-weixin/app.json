@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "有袋生活",
+    "navigationBarBackgroundColor": "#76C9B0",
+    "backgroundColor": "#76C9B0"
+  },
+  "usingComponents": {}
+}

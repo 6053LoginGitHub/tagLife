@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "有袋生活",
+  "usingComponents": {
+    "van-button": "/wxcomponents/vant/dist/button/index",
+    "van-overlay": "/wxcomponents/vant/dist/overlay/index",
+    "home": "/pages/index/components/home",
+    "tab-bar": "/components/tabBar"
+  }
+}

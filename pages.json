@@ -1,0 +1,20 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"usingComponents":{
+					"van-button": "/wxcomponents/vant/dist/button/index",
+					"van-overlay": "/wxcomponents/vant/dist/overlay/index"
+				},
+				"navigationBarTitleText": "有袋生活"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "有袋生活",
+		"navigationBarBackgroundColor": "#76C9B0",
+		"backgroundColor": "#76C9B0"
+	}
+}
