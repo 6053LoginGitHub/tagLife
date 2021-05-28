@@ -24,7 +24,13 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.content.data-v-57280228 {
+.wrapper.data-v-27539ebe {
+  width: 100%;
+}
+.wrapper .box.data-v-27539ebe {
+  width: 514rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -35,31 +41,58 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
-.content .top.data-v-57280228 {
-  width: 100%;
+.wrapper .box .title.data-v-27539ebe {
+  font-size: 30rpx;
+  color: #000;
+  margin-top: 46rpx;
 }
-.logo.data-v-57280228 {
-  height: 200rpx;
-  width: 200rpx;
-  margin-top: 200rpx;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50rpx;
+.wrapper .box .img.data-v-27539ebe {
+  display: block;
+  width: 130rpx;
+  height: 130rpx;
+  margin: 54rpx 0;
 }
-.text-area.data-v-57280228 {
+.wrapper .box .text.data-v-27539ebe {
+  width: calc(100% - 100rpx);
+  font-size: 26rpx;
+  color: #9C9C9C;
+  line-height: 40rpx;
+}
+.wrapper .box .text .bottom.data-v-27539ebe {
+  margin-top: 6rpx;
+}
+.wrapper .box .btns.data-v-27539ebe {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin: 60rpx 0;
 }
-.title.data-v-57280228 {
-  font-size: 36rpx;
-  color: #8f8f94;
+.wrapper .box .btns .cancel.data-v-27539ebe, .wrapper .box .btns .login.data-v-27539ebe {
+  width: 160rpx;
+  height: 50rpx;
+  border-radius: 8rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+}
+.wrapper .box .btns .cancel.data-v-27539ebe {
+  background-color: #DBDBDB;
+  color: #585858;
+  margin-right: 50rpx;
+}
+.wrapper .box .btns .login.data-v-27539ebe {
+  color: #fff;
+  background-color: #76C9B0;
 }
 

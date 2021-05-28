@@ -5,9 +5,12 @@
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "有袋生活",
+    "navigationBarTitleText": "世袋美好",
     "navigationBarBackgroundColor": "#76C9B0",
     "backgroundColor": "#76C9B0"
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "van-overlay": "/wxcomponents/vant/dist/overlay/index"
+  },
+  "sitemapLocation": "sitemap.json"
 }

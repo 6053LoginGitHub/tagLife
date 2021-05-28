@@ -7,9 +7,9 @@
 				:key="index"
 				@click="tab(index, item)">
 				<view class="img-bg" :class="index == 1 ? 'active' : ''">
-					<image class="img" :src="item.active"></image>
+					<image class="img" :src="currIndex == index ? item.active : item.normal"></image>
 				</view>
-				<view class="text">{{item.title}}</view>
+				<view class="text" :class="index == currIndex ? 'active' : ''">{{item.title}}</view>
 			</view>
 		</view>
 	</view>
@@ -20,26 +20,26 @@
 		name:"tabBar",
 		data() {
 			return {
-				currIndex: 0,
-				active: 0,
+				currIndex: 1,
+				active: 1,
 				tabbars: [
 					{
 						name: "agent",
 						title: "诚招代理",
 						normal: require("../static/tabbar/person.png"),
-						active: require("../static/tabbar/person.png")
+						active: require("../static/tabbar/person_on.png")
 					},
 					{
 						name: "bag",
 						title: "免费领袋",
 						normal: require("../static/tabbar/bag.png"),
-						active: require("../static/tabbar/bag.png")
+						active: require("../static/tabbar/bag_on.png")
 					},
 					{
 						name: "backstage",
 						title: "代理后台",
 						normal: require("../static/tabbar/backstage.png"),
-						active: require("../static/tabbar/backstage.png")
+						active: require("../static/tabbar/backstage_on.png")
 					}
 				]
 			};
@@ -64,6 +64,7 @@
 	justify-content: space-around;
 	align-items: center;
 	background: url(../static/tabbar/tabbar-bg.png) no-repeat;
+	// z-index: 1001;
 	background-size: 100%;
 	.tabbar-item{
 		text-align: center;
@@ -88,6 +89,9 @@
 		.text{
 			font-size: 24rpx;
 			color: #BDBDBD;
+			&.active{
+				color: #707070;
+			}
 		}
 	}
 }

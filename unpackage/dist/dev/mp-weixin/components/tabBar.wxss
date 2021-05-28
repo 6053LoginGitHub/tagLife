@@ -79,4 +79,7 @@
   font-size: 24rpx;
   color: #BDBDBD;
 }
+.tabbar .tabbar-item .text.active.data-v-20a35239 {
+  color: #707070;
+}
 

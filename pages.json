@@ -4,8 +4,8 @@
 			"path": "pages/index/index",
 			"style": {
 				"usingComponents":{
-					"van-button": "/wxcomponents/vant/dist/button/index",
-					"van-overlay": "/wxcomponents/vant/dist/overlay/index"
+					"van-button": "/wxcomponents/vant/dist/button/index"
+					
 				},
 				"navigationBarTitleText": "世袋美好"
 			}
@@ -15,6 +15,9 @@
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "世袋美好",
 		"navigationBarBackgroundColor": "#76C9B0",
-		"backgroundColor": "#76C9B0"
+		"backgroundColor": "#76C9B0",
+		"usingComponents":{
+			"van-overlay": "/wxcomponents/vant/dist/overlay/index"
+		}
 	}
 }

@@ -1,9 +1,10 @@
 {
-  "navigationBarTitleText": "有袋生活",
+  "navigationBarTitleText": "世袋美好",
   "usingComponents": {
     "van-button": "/wxcomponents/vant/dist/button/index",
-    "van-overlay": "/wxcomponents/vant/dist/overlay/index",
     "home": "/pages/index/components/home",
-    "tab-bar": "/components/tabBar"
+    "tab-bar": "/components/tabBar",
+    "backstage": "/pages/index/components/backstage",
+    "agent": "/pages/index/components/agent"
   }
 }
