@@ -8110,250 +8110,86 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var ADType = {
-  RewardedVideo: "RewardedVideo",
-  FullScreenVideo: "FullScreenVideo" };var
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var videoAd = null;
+var adVideoUtils = {
+  /**
+                      * @param {String} adUnitId 小程序广告视频id
+                      * videoAdInit 初始化广告
+                      */
+  videoAdInit: function videoAdInit(adUnitId) {
+    console.log('初始化');
+    if (videoAd) {
+      videoAd = null;
+    }
+    if (uni.createRewardedVideoAd) {
+      videoAd = uni.createRewardedVideoAd({
+        adUnitId: adUnitId });
 
-
-AdHelper = /*#__PURE__*/function () {
-
-  function AdHelper() {_classCallCheck(this, AdHelper);
-    this._ads = {};
-  }_createClass(AdHelper, [{ key: "load", value: function load(
-
-    options, onload, onerror) {
-      var ops = this._fixOldOptions(options);var
-
-      adpid =
-      ops.adpid;
-
-      if (!adpid || this.isBusy(adpid)) {
-        return;
-      }
-
-      this.get(ops).load(onload, onerror);
-    } }, { key: "show", value: function show(
-
-    options, onsuccess, onfail) {
-      var ops = this._fixOldOptions(options);var
-
-      adpid =
-      ops.adpid;
-
-      if (!adpid) {
-        return;
-      }
-
-      uni.showLoading({
-        mask: true });
-
-
-      var ad = this.get(ops);
-
-      ad.load(function () {
-        uni.hideLoading();
-        ad.show(function (e) {
-          onsuccess && onsuccess(e);
-        });
-      }, function (err) {
-        uni.hideLoading();
-        onfail && onfail(err);
+      videoAd.onLoad(function () {
+        console.log('激励视频加载成功');
       });
-    } }, { key: "isBusy", value: function isBusy(
-
-    adpid) {
-      return this._ads[adpid] && this._ads[adpid].isLoading;
-    } }, { key: "get", value: function get(
-
-    options) {var
-
-      adpid =
-      options.adpid;
-      if (!this._ads[adpid]) {
-        this._ads[adpid] = this._createAdInstance(options);
+      videoAd.onError(function (err) {
+        console.log('激励视频加载失败', err);
+      });
+      if (videoAd) {
+        videoAd.onError(function (err) {
+          console.log(err);
+        });
       }
-
-      return this._ads[adpid];
-    } }, { key: "_createAdInstance", value: function _createAdInstance(
-
-    options) {
-      var adType = options.adType || ADType.RewardedVideo;
-      delete options.adType;
-
-      var ad = null;
-      if (adType === ADType.RewardedVideo) {
-        ad = new RewardedVideo(options);
-      } else if (adType === ADType.FullScreenVideo) {
-        ad = new FullScreenVideo(options);
-      }
-
-      return ad;
-    } }, { key: "_fixOldOptions", value: function _fixOldOptions(
-
-    options) {
-      return typeof options === "string" ? {
-        adpid: options } :
-      options;
-    } }]);return AdHelper;}();
-
-
-var EXPIRED_TIME = 1000 * 60 * 30;
-var ProviderType = {
-  CSJ: 'csj',
-  GDT: 'gdt' };
-
-
-var RETRY_COUNT = 1;var
-
-AdBase = /*#__PURE__*/function () {
-  function AdBase(adInstance) {var _this = this;var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};_classCallCheck(this, AdBase);
-    this._isLoad = false;
-    this._isLoading = false;
-    this._lastLoadTime = 0;
-    this._lastError = null;
-    this._retryCount = 0;
-
-    this._loadCallback = null;
-    this._closeCallback = null;
-    this._errorCallback = null;
-
-    var ad = this._ad = adInstance;
-    ad.onLoad(function (e) {
-      _this._isLoading = false;
-      _this._isLoad = true;
-      _this._lastLoadTime = Date.now();
-
-      _this.onLoad();
+      console.log('初始化成功', videoAd);
+      // return videoAd;
+    }
+  },
+  /* 显示广告 ture为播放完成 */
+  videoAdShow: function videoAdShow() {
+    console.log(videoAd);
+    return new Promise(function (resolve, reject) {
+      adVideoUtils._showAd().then(function (val) {
+        if (val) {
+          videoAd.onClose(function (res) {
+            if (res.isEnded) {
+              //成功 给予奖励
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          });
+          videoAd.onError(function (err) {
+            if (err.errCode == "1004") {
+              reject("1004");
+            } else {
+              reject(err);
+            }
+          });
+        } else {
+          // reject(err);
+        }
+      });
     });
-    ad.onClose(function (e) {
-      _this._isLoad = false;
-      _this.onClose(e);
+  },
+  _showAd: function _showAd() {
+    return new Promise(function (resolve) {
+      videoAd.show().then(function () {
+        console.log("广告显示成功");
+        resolve(true);
+      }).catch(function (err) {
+        console.log("广告组件出现问题", err);
+        // 可以手动加载一次
+        videoAd.load().then(function () {
+          // console.log("手动加载成功");
+          resolve(true);
+          // 加载成功后需要再显示广告
+          return videoAd.show();
+        }).catch(function (err) {
+          resolve(false);
+          console.log("广告组件出现问题2次加载", err);
+          // this.showUToast("加载失败啦，请稍后在试", "error");
+        });
+      });
     });
-    ad.onVerify(function (e) {
-      // e.isValid
-    });
-    ad.onError(function (_ref)
+  } };var _default =
 
-
-    {var code = _ref.code,message = _ref.message;
-      _this._isLoading = false;
-      var data = {
-        code: code,
-        errMsg: message };
-
-
-      if (code === -5008) {
-        _this._loadAd();
-        return;
-      }
-
-      if (_this._retryCount < RETRY_COUNT) {
-        _this._retryCount += 1;
-        _this._loadAd();
-        return;
-      }
-
-      _this._lastError = data;
-      _this.onError(data);
-    });
-  }_createClass(AdBase, [{ key: "getProvider", value: function getProvider()
-
-
-
-
-
-
-
-
-
-    {
-      return this._ad.getProvider();
-    } }, { key: "load", value: function load(
-
-    onload, onerror) {
-      this._loadCallback = onload;
-      this._errorCallback = onerror;
-
-      if (this._isLoading) {
-        return;
-      }
-
-      if (this._isLoad) {
-        this.onLoad();
-        return;
-      }
-
-      this._retryCount = 0;
-
-      this._loadAd();
-    } }, { key: "show", value: function show(
-
-    onclose) {
-      this._closeCallback = onclose;
-
-      if (this._isLoading || !this._isLoad) {
-        return;
-      }
-
-      if (this._lastError !== null) {
-        this.onError(this._lastError);
-        return;
-      }
-
-      var provider = this.getProvider();
-      if (provider === ProviderType.CSJ && this.isExpired) {
-        this._loadAd();
-        return;
-      }
-
-      this._ad.show();
-    } }, { key: "onLoad", value: function onLoad(
-
-    e) {
-      if (this._loadCallback != null) {
-        this._loadCallback();
-      }
-    } }, { key: "onClose", value: function onClose(
-
-    e) {
-      if (this._closeCallback != null) {
-        this._closeCallback({
-          isEnded: e.isEnded });
-
-      }
-    } }, { key: "onError", value: function onError(
-
-    e) {
-      if (this._errorCallback != null) {
-        this._errorCallback(e);
-      }
-    } }, { key: "destroy", value: function destroy()
-
-    {
-      this._ad.destroy();
-    } }, { key: "_loadAd", value: function _loadAd()
-
-    {
-      this._isLoad = false;
-      this._isLoading = true;
-      this._lastError = null;
-      this._ad.load();
-    } }, { key: "isExpired", get: function get() {return this._lastLoadTime !== 0 && Math.abs(Date.now() - this._lastLoadTime) > EXPIRED_TIME;} }, { key: "isLoading", get: function get() {return this._isLoading;} }]);return AdBase;}();var
-
-
-RewardedVideo = /*#__PURE__*/function (_AdBase) {_inherits(RewardedVideo, _AdBase);var _super = _createSuper(RewardedVideo);
-  function RewardedVideo() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};_classCallCheck(this, RewardedVideo);return _super.call(this,
-    plus.ad.createRewardedVideoAd(options), options);
-  }return RewardedVideo;}(AdBase);var
-
-
-FullScreenVideo = /*#__PURE__*/function (_AdBase2) {_inherits(FullScreenVideo, _AdBase2);var _super2 = _createSuper(FullScreenVideo);
-  function FullScreenVideo() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};_classCallCheck(this, FullScreenVideo);return _super2.call(this,
-    plus.ad.createFullScreenVideoAd(options), options);
-  }return FullScreenVideo;}(AdBase);var _default =
-
-
-new AdHelper();exports.default = _default;
+adVideoUtils;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

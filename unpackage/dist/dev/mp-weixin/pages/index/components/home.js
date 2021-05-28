@@ -179,7 +179,8 @@ var _ad = _interopRequireDefault(__webpack_require__(/*! ../../../api/ad.js */ 2
 //
 //
 //
-var _default = { data: function data() {return { indicatorDots: true, autoplay: true, interval: 2000, duration: 500, swipers: [{ img: __webpack_require__(/*! ../../../static/swiper/1.jpg */ 25) }, { img: __webpack_require__(/*! ../../../static/swiper/2.jpg */ 26) }, { img: __webpack_require__(/*! ../../../static/swiper/3.jpg */ 27) }], show: false, nums: 10, isSuccess: false, height: 0, title: '激励视频' };}, created: function created() {var _this = this;uni.getSystemInfo({ success: function success(res) {_this.height = res.windowHeight + "px";} });}, methods: { /** 领袋 */receiveBag: function receiveBag() {var _this2 = this;this.show = !this.show;setTimeout(function () {_this2.show = !_this2.show;
+var _default = { data: function data() {return { indicatorDots: true, autoplay: true, interval: 2000, duration: 500, swipers: [{ img: __webpack_require__(/*! ../../../static/swiper/1.jpg */ 25) }, { img: __webpack_require__(/*! ../../../static/swiper/2.jpg */ 26) }, { img: __webpack_require__(/*! ../../../static/swiper/3.jpg */ 27) }], show: false, nums: 10, isSuccess: false, height: 0, title: '激励视频' };}, created: function created() {var _this = this;uni.getSystemInfo({ success: function success(res) {_this.height = res.windowHeight + "px";} });}, methods: { /** 领袋 */receiveBag: function receiveBag() {var _this2 = this;this.show = !this.show;setTimeout(function () {
+        _this2.show = !_this2.show;
         _this2.isSuccess = true;
         setTimeout(function () {
           _this2.isSuccess = false;
@@ -191,42 +192,19 @@ var _default = { data: function data() {return { indicatorDots: true, autoplay: 
         }
       }, 3000);
     },
-    showRewardedVideoAd: function showRewardedVideoAd() {
-      // 调用后会显示 loading 界面
-      _ad.default.show({
-        adpid: 1507000689, // HBuilder 基座测试广告位
-        adType: "RewardedVideo" },
-      function (res) {
-        // 用户点击了【关闭广告】按钮
-        if (res && res.isEnded) {
-          // 正常播放结束
-          console.log("onClose " + res.isEnded);
+    openVideoAd: function openVideoAd() {var _this3 = this;
+      this.$utils.videoAdShow().then(function (res) {
+        if (res) {
+          // 成功
+          // this.adVideoRes();
+          console.log('成功', res);
         } else {
-          // 播放中途退出
-          console.log("onClose " + res.isEnded);
+          // this.adVideoErr();
+          console.log('失败', res);
         }
-      }, function (err) {
-        // 广告加载错误
-        console.log(err);
-      });
-    },
-    showFullScreenVideoAd: function showFullScreenVideoAd() {
-      // 调用后会显示 loading 界面
-      _ad.default.show({
-        adpid: 1507000611, // HBuilder 基座测试广告位
-        adType: "FullScreenVideo" },
-      function (res) {
-        // 用户点击了【关闭广告】按钮
-        if (res && res.isEnded) {
-          // 正常播放结束
-          console.log("onClose " + res.isEnded);
-        } else {
-          // 播放中途退出
-          console.log("onClose " + res.isEnded);
-        }
-      }, function (err) {
-        // 广告加载错误
-        console.log(err);
+      }).
+      catch(function (err) {
+        _this3.showUToast("视频加载失败了,稍后在试", "error");
       });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

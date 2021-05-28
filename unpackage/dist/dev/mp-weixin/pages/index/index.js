@@ -171,6 +171,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.height = res.windowHeight + "px";
       } });
 
+    this.$utils.videoAdInit('adunit-40d0e48dae480c56');
   },
   methods: {
     /** 当前tabbar选中 */

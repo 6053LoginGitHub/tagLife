@@ -10,13 +10,13 @@
 		<view class="get-bag-box">
 			<view class="device-name">观音桥香港城2号机</view>
 			<view class="notice">{{nums == 0 ? '' : '观看广告视频'}}</view>
-			<button class="btn" :class="nums == 0 ? 'gray' : ''" :disabled="nums == 0" @click="showFullScreenVideoAd">免费领取可降解环保袋</button>
+			<button class="btn" :class="nums == 0 ? 'gray' : ''" :disabled="nums == 0" @click="openVideoAd">免费领取可降解环保袋</button>
 			<view class="get-nums">今日还可领取 <text class="num">{{ nums }}</text> 个</view>
 			<view class="result" v-show="isSuccess">出袋成功</view>
 		</view>
 		
 		<view class="ad-view">
-			<ad unit-id="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/ad/rewarded-video-ad.html" ad-intervals="100"></ad>
+			<ad unit-id="adunit-3c44f4ece0116b13" ad-intervals="100"></ad>
 		</view>
 		<van-overlay :show="show">
 		  <view class="wrapper">
@@ -57,6 +57,7 @@ export default{
 				this.height = res.windowHeight+"px"
 			}
 		});
+		
 	},
 	methods:{
 		/** 领袋 */
@@ -75,44 +76,21 @@ export default{
 				}
 			},3000)
 		},
-		showRewardedVideoAd() {
-			// 调用后会显示 loading 界面
-			AD.show({
-				adpid: 1507000689, // HBuilder 基座测试广告位
-				adType: "RewardedVideo"
-			}, (res) => {
-				// 用户点击了【关闭广告】按钮
-				if (res && res.isEnded) {
-					// 正常播放结束
-					console.log("onClose " + res.isEnded);
+		openVideoAd: function() {
+			this.$utils.videoAdShow().then((res) => {
+				if (res) {
+				 // 成功
+					// this.adVideoRes();
+					console.log('成功',res)
 				} else {
-					// 播放中途退出
-					console.log("onClose " + res.isEnded);
+					// this.adVideoErr();
+					console.log('失败',res)
 				}
-			}, (err) => {
-				// 广告加载错误
-				console.log(err)
 			})
+			.catch((err) => {
+				this.showUToast("视频加载失败了,稍后在试", "error");
+			});   
 		},
-		showFullScreenVideoAd() {
-			// 调用后会显示 loading 界面
-			AD.show({
-				adpid: 1507000611, // HBuilder 基座测试广告位
-				adType: "FullScreenVideo"
-			}, (res) => {
-				// 用户点击了【关闭广告】按钮
-				if (res && res.isEnded) {
-					// 正常播放结束
-					console.log("onClose " + res.isEnded);
-				} else {
-					// 播放中途退出
-					console.log("onClose " + res.isEnded);
-				}
-			}, (err) => {
-				// 广告加载错误
-				console.log(err)
-			})
-		}
 	}
 }
 </script>

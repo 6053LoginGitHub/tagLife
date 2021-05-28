@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import App from './App'
+import adVideoUtils from "./api/ad.js";
+
+Vue.prototype.$utils = {
+  ...adVideoUtils,
+};
 
 Vue.config.productionTip = false
 
